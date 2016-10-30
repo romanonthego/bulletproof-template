@@ -1,0 +1,110 @@
+.footer
+  color: $accent
+  display: flex
+  flex-direction: row
+  font-size: x(16)
+  ul
+    list-style: none
+
+  a
+    text-decoration: none
+    font-family: $body-font
+    color: $accent
+    transition: color .1s linear
+    &:hover
+      color: white
+
+.svgLink
+  a svg g
+    transition: fill .1s linear
+  a:hover
+    svg
+      g
+        fill: $white
+
+.navigation
+  width: column(3)
+  margin-right: column_gutter()
+  composes: svgLink
+
+.logo
+  width: x(67)
+  height: x(16)
+  margin-bottom: x(21)
+
+  svg
+    width: x(67)
+    height: x(16)
+
+.navigationMenu
+  display: flex
+  margin-bottom: x(40)
+  ul:first-child
+    margin-right: column_gutter()
+
+.social
+  width: column(4)
+  margin-right: column_gutter()
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+
+.socIcons
+  width: column(2)
+  display: flex
+  justify-content: space-between
+  composes: svgLink
+
+  svg
+    height: x(28)
+    width: x(28)
+
+.subscribeForm
+  width: column(4)
+  position: relative
+
+.email
+  display: block
+  height: x(44)
+  line-height: x(44)
+  font-size: font_size(20)
+  line-height: font_size(26)
+  color: $white
+  text-align: left
+  vertical-align: middle
+  width: 100%
+  background-color: transparent
+  border-top: none
+  border-left: none
+  border-right: none
+  border-bottom: 1px solid $white
+  padding-bottom: x(15)
+
+.submit
+  height: x(20)
+  width: x(23)
+  background-color: transparent
+  border: none
+  padding: 0
+  margin: 0
+  position: absolute
+  right: 0
+  top: x(6)
+
+  svg
+    height: x(20)
+    width: x(23)
+
+
+.copyrights
+  width: column(3)
+  display: flex
+  justify-content: space-between
+  flex-direction: column
+  align-items: flex-end
+
+  a
+    svg
+      width: x(141)
+      height: x(51)

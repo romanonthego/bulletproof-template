@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <title>Demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="ru">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0">
+  <link rel="dns-prefetch" href="//ucarecdn.com/">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  {{#statics.css}}
+    <link rel="stylesheet" href="/assets/{{statics.css}}">
+  {{/statics.css}}
+</head>
+<body>
+  <main id="demo"></main>
+  {{#statics.demoJs}}
+    <script src="/assets/{{statics.demoJs}}" async></script>
+  {{/statics.demoJs}}
+</body>
+</html>

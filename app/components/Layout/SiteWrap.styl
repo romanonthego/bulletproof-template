@@ -1,0 +1,36 @@
+.site
+  display: flex
+  justify-content: flex-start
+  align-items: stretch
+  flex-direction: column
+
+  min-height: 100vh
+
+.siteWrap
+  flex 1 0 auto
+  ul
+    list-style: none
+
+    ol
+      margin-left: x(20)
+
+    > li
+      margin-bottom: x(25)
+
+      &:before
+        content: '— '
+
+  ol
+    list-style: none
+    counter-reset: ordered-list
+
+    > li
+      counter-increment: ordered-list
+      margin-bottom: x(25)
+
+      &:before
+        content: counter(ordered-list) " "
+
+
+.paddedTop
+  padding-top: x(80)

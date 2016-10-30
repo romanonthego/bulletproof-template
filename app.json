@@ -1,0 +1,57 @@
+{
+  "name": "vector3",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "API_BASE": {
+      "required": true
+    },
+    "BASE_URL": {
+      "required": true
+    },
+    "FB_APP_ID": {
+      "required": true
+    },
+    "GA": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "NODE_ENV_HEROKU": {
+      "required": true
+    },
+    "NODE_MODULES_CACHE": {
+      "required": true
+    },
+    "SENTRY_DSN": {
+      "required": true
+    },
+    "SENTRY_SOURCE_MAPS_API_BASE_URL": {
+      "required": true
+    },
+    "UPLOADCARE_PRIVATE_KEY": {
+      "required": true
+    },
+    "UPLOADCARE_PUBLIC_KEY": {
+      "required": true
+    },
+    "VK_APP_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+export const LOAD = 'reduxAsyncConnect/LOAD'
+export const LOAD_SUCCESS = 'reduxAsyncConnect/LOAD_SUCCESS'
+export const LOAD_FAIL = 'reduxAsyncConnect/LOAD_FAIL'
+export const CLEAR = 'reduxAsyncConnect/CLEAR'
+export const BEGIN_GLOBAL_LOAD = '@reduxAsyncConnect/BEGIN_GLOBAL_LOAD'
+export const END_GLOBAL_LOAD = '@reduxAsyncConnect/END_GLOBAL_LOAD'

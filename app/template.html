@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="ru">
+  <meta http-equiv="language" content="ru">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=1280, initial-scale=0">
+  <link rel="dns-prefetch" href="//ucarecdn.com/">
+  <link rel="dns-prefetch" href="//www.google-analytics.com/">
+  <link rel="subresource" href="//cdn.ravenjs.com/2.3.0/console/raven.min.js">
+  <link rel="prefetch" href="https://www.google-analytics.com/analytics.js">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  {{{title}}}
+
+  {{#meta}}
+    {{{meta}}}
+  {{/meta}}
+
+  {{#link}}
+    {{{link}}}
+  {{/link}}
+
+  {{#script}}
+    {{{script}}}
+  {{/script}}
+
+  {{#statics.css}}
+    <link rel="stylesheet" href="/assets/{{statics.css}}">
+  {{/statics.css}}
+
+  {{#initialState}}
+    <script>
+      window.__INITIAL_STATE__ = {{{initialState}}};
+    </script>
+  {{/initialState}}
+</head>
+<body>
+  <main id="app">{{{html}}}</main>
+
+  {{#__SENTRY_DSN__}}
+    <script src="//cdn.ravenjs.com/1.1.22/console/raven.min.js"></script>
+    <script>
+      Raven.config('{{{__SENTRY_DSN__}}}', {
+        ignoreErrors: [
+          'The "fb-root" div has not been created, auto-creating',
+          'Download the React DevTools for a better development experience: https://fb.me/react-devtools',
+          /Warning: React attempted to reuse markup/,
+          /is being rendered by both\.*using the same key/
+        ]
+        {{#sentryVersion}}, release: '{{{sentryVersion}}}'{{/sentryVersion}}
+      }).install();
+    </script>
+  {{/__SENTRY_DSN__}}
+
+  {{#statics.js}}
+    <script src="/assets/{{statics.js}}" async></script>
+  {{/statics.js}}
+
+  {{#__GA__}}
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', '{{__GA__}}', '{{__GA_MODE__}}');
+      ga('require', 'displayfeatures');
+      {{#__GA_SECONDARY__}}
+      ga('create', '{{__GA_SECONDARY__}}', 'auto', {name: 'secondary'});
+      ga('secodanry.require', 'displayfeatures');
+      {{/__GA_SECONDARY__}}
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+  {{/__GA__}}
+</body>
+</html>

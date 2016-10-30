@@ -1,0 +1,248 @@
+$black = #121212
+$white = white
+$blue = #2E42A4
+$green = #19E292
+$dark-green = #147869
+$red = #FF8D87
+$dark-gray = #4A4A4A
+$accent = #979797
+
+$text-color = $dark-gray
+
+$body-font = "futura-book", sans-serif
+$header-font = "futura-demi", sans-serif
+$accent-body-font = "minion-regular", serif
+$accent-header-font = "minion-semibold", serif
+$font-medium = 20px
+
+// COLORS
+gray = #212121
+light_gray = #BCBBB8
+
+background_color = gray
+text_color = light_gray
+block_higlight_color = rgba(255, 255, 255, .04)
+link_color = #878786
+link_color_hover = #D1D1D1
+header_color = #B7B7B7
+
+
+$devices = {
+  ipad: {
+    width: 1024px
+    height: 768px
+  }
+
+  iphone4: {
+    width: 320px
+    height: 480px
+  }
+
+  iphone5: {
+    width: 320px
+    height: 568px
+  }
+
+  iphone6: {
+    width: 375px
+    height: 667px
+  }
+
+  iphone6plus: {
+    width: 414px
+    height: 736px
+  }
+}
+
+$grid ={
+  block: 10px
+  row: 29px
+
+  wide_desk: {
+    column: 133px
+    column_gutter: 20px
+    row: 29px
+    column_count: 12
+  }
+
+  desk: {
+    column: 70px
+    column_gutter: 30px
+    row: 29px
+    column_count: 12
+  }
+
+  tablet: {
+    column: 60px
+    column_gutter: 20px
+    row: 29px
+    column_count: 10
+  }
+
+  phone_landscape: {
+    column: 31px
+    column_gutter: 5px
+    row: 19px
+    column_count: 12
+  }
+
+  phone_portrait: {
+    column: 22px
+    column_gutter: 5px
+    row: 19px
+    column_count: 10
+  }
+}
+
+
+// // SIZING
+// // return size in base-blocks
+// // default for all the stuff
+x(n=1)
+  return x_in_rem(n)
+
+// return size in base block in rem units
+x_in_rem(n)
+  $n_normalized = n/$grid.block
+  return 1rem*$n_normalized
+
+
+x_in_px(n=1)
+  return $grid.block*n
+
+
+x_from_px(size_in_px)
+  return x(size_in_px)
+
+
+// columns
+column(n=1, add_gutter=false, size='desk')
+  column = $grid[size]['column']
+  gutter = $grid[size]['column_gutter']
+
+  gutters_count = n
+
+  if add_gutter
+    gutters_count = n
+  else
+    gutters_count = n - 1
+
+  return x(column)*n + x(gutter)*gutters_count
+
+
+column_gutter(size='desk')
+  gutter = $grid[size]['column_gutter']
+
+  return x(gutter)
+
+
+
+row(n=1, size='desk')
+  row = $grid[size]['row']
+
+  return x(row/$grid.block)*n
+
+
+row_from_px(size_in_px=20, size='desk')
+  row = $grid[size]['row']
+
+  return x(row)*(size_in_px/row)
+
+
+// returns x(size/20px) here
+font_size(size_in_px)
+  return x_from_px(size_in_px)
+
+y(n=1)
+  return x($grid.row)*n
+
+y_in_px(n)
+  return $grid.row*n
+
+
+
+// AWESOME MEDIA QUIERIES
+$media_cache = {}
+
+media(query)
+  return 'only screen and ' + query
+
+media2x(query)
+  q =     'only screen and (-webkit-min-device-pixel-ratio: 1.5)      and ' + query + ','
+  q = q + 'only screen and (   min--moz-device-pixel-ratio: 1.5)      and ' + query + ','
+  q = q + 'only screen and (     -o-min-device-pixel-ratio: 1.5/1)    and ' + query + ','
+  q = q + 'only screen and (        min-device-pixel-ratio: 1.5)      and ' + query + ','
+  q = q + 'only screen and (                min-resolution: 192dpi) and ' + query + ','
+  q = q + 'only screen and (                min-resolution: 2dppx)  and ' + query
+
+  return q
+
+media3x(query)
+  q =     'only screen and (-webkit-min-device-pixel-ratio: 3)      and ' + query + ','
+  q = q + 'only screen and (   min--moz-device-pixel-ratio: 3)      and ' + query + ','
+  q = q + 'only screen and (     -o-min-device-pixel-ratio: 3/1)    and ' + query + ','
+  q = q + 'only screen and (        min-device-pixel-ratio: 3)      and ' + query + ','
+  q = q + 'only screen and (                min-resolution: 220dpi) and ' + query + ','
+  q = q + 'only screen and (                min-resolution: 3dppx)  and ' + query
+
+  return q
+
+$media_aliases = {
+  phone_portrait:        media('(max-width: 414px)')
+  'phone_portrait@2x':   media2x('(max-width: 414px)')
+  'phone_portrait@3x':   media3x('(max-width: 414px)')
+
+  phone_landscape:       media('(max-width: 736px)')
+  'phone_landscape@2x':  media2x('(max-width: 736px)')
+  'phone_landscape@3x':  media3x('(max-width: 736px)')
+
+  phone:           media('(max-width: 736px)')
+  'phone@2x':      media2x('(max-width: 736px)')
+  'phone@3x':      media3x('(max-width: 736px)')
+
+  portable:        media('(max-width: 1023px)')
+  'portable@2x':   media2x('(max-width: 1023px)')
+  'portable@3x':   media3x('(max-width: 1023px)')
+
+  tablet:          media('(max-width: 1023px)')
+  'tablet@2x':     media2x('(max-width: 1023px)')
+  'tablet@3x':     media3x('(max-width: 1023px)')
+
+  desk:            media('(min-width: 1024px)')
+  'desk@2x':       media2x('(min-width: 1024px)')
+  'desk@3x':       media3x('(min-width: 1024px)')
+
+  medium_desk:     media('(max-width: 1140px)')
+  'medium_desk@2x':media2x('(max-width: 1140px)')
+  'medium_desk@3x':media3x('(max-width: 1140px)')
+
+  wide_desk:       media('(min-width: 1800px)')
+  'wide_desk@2x':  media2x('(min-width: 1800px)')
+  'wide_desk@3x':  media3x('(min-width: 1800px)')
+
+  wide_desk__background:      media('(min-width: 1400px)')
+  'wide_desk_background@2x': media2x('(min-width: 1400px)')
+  'wide_desk_background@3x': media3x('(min-width: 1400px)')
+}
+
+
+media($condition)
+  helper($condition)
+    unless $media_cache[$condition]
+      $media_cache[$condition] = ()
+    push($media_cache[$condition], block)
+
+  +helper($condition)
+    {selector() + ''}
+      {block}
+
+// Function we would use to call all the cached styles
+apply_media_cache()
+  for $media, $blocks in $media_cache
+    $media = unquote($media_aliases[$media] || $media)
+    // $media = '(%s)' % $media unless match('\(', $media)
+    // $media = 'only screen and %s' % $media
+
+    @media $media
+      for $block in $blocks
+        {$block}

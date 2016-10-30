@@ -1,0 +1,47 @@
+.section
+  min-height: 100%
+  min-height: 100vh
+  padding: x(100) 0
+  background-color: $black
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+
+.content
+  color: $white
+
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: flex-end
+
+  h4
+    padding: 0
+
+.title
+  position: relative
+  display: inline-block
+  margin-bottom: x(60)
+  z-index: 20
+
+  &:after
+    content: ''
+    z-index: -1
+    display: block
+    position: absolute
+    width: 120%
+    height: 120%
+    top: -10%
+    left: -10%
+
+    border: x(8) solid $blue
+    border-radius: 50%
+
+.errorStack
+  display: block
+  font-size: x(14)
+  line-height: x(18)
+  max-height: x(200)
+  overflow: scroll
+
+  margin-bottom: x(60)
