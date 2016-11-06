@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import {TransitionMotion, spring} from 'react-motion'
 import css from './RouteTransition.styl'
 import cx from 'classnames'
 // import reactVendorPrefixes from 'app/utils/reactVendorPrefixes'
 
-export default React.createClass({
-  propTypes: {
+const springConfig = {stiffness: 146, damping: 32, precision: 0.01}
+
+export default class RouteTransition extends PureComponent {
+  static propTypes = {
     pathname: React.PropTypes.string.isRequired,
     children: React.PropTypes.node.isRequired,
     animated: React.PropTypes.bool,
@@ -14,17 +16,14 @@ export default React.createClass({
       damping: React.PropTypes.number.isRequired,
       precision: React.PropTypes.number
     }),
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      animated: true,
-      animationConfig: {stiffness: 146, damping: 32, precision: 0.01},
-    }
-  },
+  static defaultProps = {
+    animated: true,
+  }
 
 
-  getStyles() {
+  getStyles = () => {
     const {
       children,
       pathname
@@ -39,23 +38,45 @@ export default React.createClass({
         }
       }
     ]
-  },
+  }
 
-  willEnter() {
+  willEnter = () => {
     return {
       opacity: 1,
     }
-  },
+  }
 
 
-  willLeave() {
+  willLeave = () => {
     return {
-      opacity: spring(0, this.props.animationConfig),
+      opacity: spring(0, springConfig),
     }
-  },
+  }
 
 
-  renderAnimatedMotion() {
+  renderRoute = ({key, data, style}) => {
+    const {opacity} = style
+
+    // animated out
+    const animated = opacity < 1
+
+    const cl = cx({
+      [css.animated]: animated
+    })
+
+    const transitionStyle = {
+      opacity,
+    }
+
+    return (
+      <div key={key} className={cl} style={transitionStyle}>
+        {data.children}
+      </div>
+    )
+  }
+
+
+  renderRoutesTransition = () => {
     return (
       <TransitionMotion
         styles={this.getStyles()}
@@ -64,44 +85,16 @@ export default React.createClass({
       >
         {interpolatedStyles =>
           <div className={css.wrap}>
-            {interpolatedStyles.map(({key, data, style}) => {
-              const {opacity} = style
-
-              // animated out
-              const animated = opacity < 1
-
-              const cl = cx({
-                [css.animated]: animated
-              })
-
-              const transitionStyle = {
-                opacity,
-              }
-
-              return (
-                <div key={key} className={cl} style={transitionStyle}>
-                  {data.children}
-                </div>
-              )
-            }
-            )}
+            {interpolatedStyles.map(this.renderRoute)}
           </div>
         }
       </TransitionMotion>
     )
-  },
+  }
 
-  renderWithoutAnimation() {
-    return (
-      this.props.children
-    )
-  },
+  renderWithoutAnimation = () => {this.props.children}
 
   render() {
-    if (this.props.animated) {
-      return this.renderAnimatedMotion()
-    }
-
-    return this.renderWithoutAnimation()
-  },
-})
+    return this.props.animated ? this.renderRoutesTransition() : this.renderWithoutAnimation()
+  }
+}

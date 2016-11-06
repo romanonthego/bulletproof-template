@@ -1,25 +1,19 @@
-import React, {PropTypes} from 'react'
+import React, {PropTypes, PureComponent} from 'react'
 import {TransitionMotion, spring} from 'react-motion'
 import css from './LoadingBar.styl'
 
-export default React.createClass({
-  propTypes: {
+const springConfig = {stiffness: 146, damping: 32, precision: 1}
+
+export default class LoadingBar extends PureComponent {
+  static propTypes = {
     loading: PropTypes.number,
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      loading: 0,
-    }
-  },
+  static defaultProps = {
+    loading: 0,
+  }
 
-  getInitialState() {
-    return {
-
-    }
-  },
-
-  getStyles() {
+  getStyles = () => {
     if (!this.props.loading) {
       return []
     }
@@ -28,23 +22,15 @@ export default React.createClass({
       {
         key: 'loading-bar',
         style: {
-          width: spring(80, {stiffness: 146, damping: 32, precision: 1})
-        }
-      }
+          width: spring(80, springConfig),
+        },
+      },
     ]
-  },
+  }
 
-  willEnter() {
-    return {
-      width: 0
-    }
-  },
+  willEnter = () => ({width: 0})
 
-  willLeave() {
-    return {
-      width: spring(120, {stiffness: 146, damping: 32, precision: 1})
-    }
-  },
+  willLeave = () => ({width: spring(120, springConfig)})
 
   render() {
     return (
@@ -55,12 +41,12 @@ export default React.createClass({
       >
         {interpolatedStyles =>
           <div className={css.bar}>
-            {interpolatedStyles.map(({key, style}) => {
-              return <div key={key} style={{width: `${style.width}%`}}/>
-            })}
+            {interpolatedStyles.map(({key, style: {width}}) =>
+              <div key={key} style={{width: `${width}%`}} />
+            )}
           </div>
         }
       </TransitionMotion>
     )
   }
-})
+}

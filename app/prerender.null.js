@@ -8,7 +8,7 @@ import template from 'app/template.html'
 function renderPage(token, statics) {
   return template({
     html: '',
-    initialState: JSON.stringify({me: {token}}),
+    initialState: token ? JSON.stringify({me: {token}}) : "{}",
     statics,
     ...GLOBALS,
   })

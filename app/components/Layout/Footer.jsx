@@ -1,19 +1,13 @@
 import React from 'react'
 import Section from './Section'
 
-export default React.createClass({
-  propTypes: {
-  },
-
-  render() {
-    return (
-      <Section
-        tag="footer"
-        backgroundColorKey="darkgray"
-        paddedVertical
-      >
-        Footer!
-      </Section>
-    )
-  }
-})
+export default () => {
+  return (
+    <Section
+      backgroundColorKey="darkgray"
+      paddedVertical
+    >
+      Footer
+    </Section>
+  )
+}

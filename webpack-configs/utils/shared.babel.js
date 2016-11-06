@@ -1,13 +1,12 @@
 /* eslint max-len:0 */
-import webpack from 'webpack'
 import fs from 'fs'
 import path from 'path'
+import webpack from 'webpack'
 import StatsPlugin from 'stats-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import autoprefixer from 'autoprefixer'
-
-import composeGlobals from './composeGlobals'
 import dotenv from 'dotenv'
+import composeGlobals from './composeGlobals'
 
 
 // use __DIR instead of __dirname
@@ -17,7 +16,7 @@ const __DIR = path.resolve('./')
 
 // loading .env config vars into process.env
 dotenv.config({
-  path: path.join(__DIR, '.env')
+  path: path.join(__DIR, '.env'),
 })
 
 const GLOBALS = {
@@ -60,7 +59,7 @@ const globals = {
   GLOBALS: composedGlobals,
 }
 
-const nodeModulesRegex = /node_modules/
+const nodeModulesRegex = /node_modules(?!.+-es6)/
 
 const cssModulesString = 'disableStructuralMinification&modules&localIdentName=[name]-[local]-[hash:base64:5]!postcss!stylus'
 
@@ -80,7 +79,7 @@ const config = {
       test: /\.js|jsx$/,
       loader: 'babel',
       exclude: nodeModulesRegex,
-      include: __DIR
+      include: __DIR,
     },
     mustache: {
       test: /.html|mustache|mu$/,
@@ -90,13 +89,13 @@ const config = {
       test: /\.js|jsx$/,
       loader: 'react-hot!babel',
       exclude: nodeModulesRegex,
-      include: __DIR
+      include: __DIR,
     },
     jsHotServer: {
       test: /\.js|jsx$/,
       loader: 'babel',
       exclude: nodeModulesRegex,
-      include: __DIR
+      include: __DIR,
     },
     styles: {
       test: /.styl$/,
@@ -118,17 +117,17 @@ const config = {
       test: /\.svg$/,
       loader: 'url?name=[name]@[hash].[ext]',
       query: {
-        limit: 10000
-      }
+        limit: 10000,
+      },
     },
     // eah. inlining woff to prevent fonts flickering
     inlineWoff: {
       test: /\.woff$/,
-      loader: 'url?name=[name]@[hash].[ext]&limit=1000000'
+      loader: 'url?name=[name]@[hash].[ext]&limit=1000000',
     },
     restFiles: {
       test: /\.(otf|ttf)$/,
-      loader: 'file?name=[name]@[hash].[ext]'
+      loader: 'file?name=[name]@[hash].[ext]',
     },
     uploadcare: {
       test: /\.(jpg|png|gif|mp4|webm|pdf)$/,
@@ -196,9 +195,7 @@ const config = {
     ],
   },
 
-  postcss: () => {
-    return [autoprefixer]
-  }
+  postcss: () => [autoprefixer],
 }
 
 
@@ -251,7 +248,7 @@ export const loadersConfigs = {
 export function excludeNodeModules() {
   // fuck vertx :)
   const nodeModules = {
-    vertx: 'commonjs vertx'
+    vertx: 'commonjs vertx',
   }
 
   fs.readdirSync('node_modules')
@@ -266,6 +263,6 @@ export function excludeNodeModules() {
 
 export function excludeAnythingButApp() {
   return [
-    /^(?!(\.|#|!|app|server|webpack-configs|build|build-cache))/
+    /^(?!(\.|#|!|app|server|webpack-configs|build|build-cache))/,
   ]
 }

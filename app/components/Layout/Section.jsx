@@ -1,15 +1,14 @@
-import React, {PropTypes} from 'react'
+import React, {PropTypes, PureComponent} from 'react'
 import cx from 'classnames'
 import css from './Section.styl'
 
-import InlineSVG from 'svg-inline-react'
 import ReactDriveIn from 'react-drive-in'
 import omit from 'lodash/omit'
 
 const overlayColor = 'rgba(0, 0, 0, 0.3)'
 
-export default React.createClass({
-  propTypes: {
+export default class Section extends PureComponent {
+  static propTypes = {
     tag: PropTypes.string,
     className: PropTypes.string,
     backgroundImage: PropTypes.string,
@@ -25,49 +24,21 @@ export default React.createClass({
     paddedVertical: PropTypes.bool,
     paddedVerticalBig: PropTypes.bool,
     backgroundColorKey: PropTypes.string,
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      tag: 'section',
-      showOverlay: true,
-      showVideoOverlay: true,
-      titlePosition: 'left',
-      paddedVertical: false,
-      paddedVerticalBig: false,
-      paddedTop: false,
-      marginTop: false,
-      paddedBottom: true,
-      marginBottom: false,
-      backgroundColorKey: 'white'
-    }
-  },
-
-
-  renderHeader() {
-    const {
-      title,
-      titlePosition,
-      hint,
-    } = this.props
-
-    const headerClass = cx({
-      [css.headerInner]: true,
-      [css.left]: titlePosition === 'left',
-      [css.center]: titlePosition === 'center',
-    })
-
-    return (
-      <header className={css.header}>
-        <div className={headerClass}>
-          <h6 className={css.title}>
-            {title}
-          </h6>
-        </div>
-      </header>
-    )
-  },
-
+  static defaultProps = {
+    tag: 'section',
+    showOverlay: true,
+    showVideoOverlay: true,
+    titlePosition: 'left',
+    paddedVertical: false,
+    paddedVerticalBig: false,
+    paddedTop: false,
+    marginTop: false,
+    paddedBottom: true,
+    marginBottom: false,
+    backgroundColorKey: 'white'
+  }
 
   render() {
     const {
@@ -85,7 +56,6 @@ export default React.createClass({
       backgroundVideo,
       showOverlay,
       showVideoOverlay,
-      title,
       tag,
       ...otherProps
     } = this.props
@@ -121,8 +91,10 @@ export default React.createClass({
 
     const props = omit(otherProps, ['titlePosition'])
 
+    const Tag = tag || 'section'
+
     return (
-      <this.props.tag className={classSection} style={sectionStyle} {...props}>
+      <Tag className={classSection} style={sectionStyle} {...props}>
         {backgroundVideo && backgroundVideo.length &&
           <ReactDriveIn
             className={(cx({[css.driveInOverlay]: showVideoOverlay}))}
@@ -134,7 +106,7 @@ export default React.createClass({
         <main className={classMain}>
           {children}
         </main>
-      </this.props.tag>
+      </Tag>
     )
   }
-})
+}

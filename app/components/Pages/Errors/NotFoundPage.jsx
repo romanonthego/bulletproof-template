@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes, PureComponent} from 'react'
 import {Link} from 'react-router'
 
 import css from './ErrorPages.styl'
@@ -7,10 +7,10 @@ import PageMeta from 'app/components/PageMeta'
 import SiteWrap from 'app/components/Layout/SiteWrap'
 import Section from 'app/components/Layout/Section'
 
-export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-  },
+export default class NotFoundPage extends PureComponent {
+  static propTypes = {
+    children: PropTypes.node,
+  }
 
   render() {
     return (
@@ -21,7 +21,7 @@ export default React.createClass({
               <main>
                 <h1 className={css.title}>404</h1>
 
-                <h4>Извините, но такой<br/>страницы, к сожалению,<br/>не существует</h4>
+                <h4>Извините, но такой<br />страницы, к сожалению,<br />не существует</h4>
               </main>
               <aside>
                 <Link to="/">
@@ -34,4 +34,4 @@ export default React.createClass({
       </PageMeta>
     )
   }
-})
+}

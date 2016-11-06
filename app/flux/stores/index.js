@@ -1,11 +1,11 @@
-import reducers from '../reducers'
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
 import {routerReducer, syncHistoryWithStore, routerMiddleware} from 'react-router-redux'
 import {reducer as reduxAsyncConnect} from 'redux-connect'
 import {loadingBarReducer} from 'react-redux-loading-bar'
 import thunk from 'redux-thunk'
-import loadingBarMiddleware from './loadingBarMiddleware'
 import window from 'app/utils/window'
+import reducers from 'app/flux/reducers'
+import loadingBarMiddleware from './loadingBarMiddleware'
 
 // https://github.com/zalmoxisus/redux-devtools-extension#implementation
 // external redux devtools via chrome extention

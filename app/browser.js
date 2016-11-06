@@ -10,12 +10,11 @@ import {ReduxAsyncConnect} from 'redux-connect'
 import createStore from 'app/flux/stores'
 import routes from 'app/routes'
 
-import {trackPage} from 'app/utils/gaAction'
-// import scrollToElement from 'app/utils/scrollToElement'
+import {trackPage} from 'app/utils/analytics/gaAction'
 
 const {
   store,
-  history
+  history,
 } = createStore(browserHistory, window.__INITIAL_STATE__)
 
 const app = (
@@ -26,7 +25,9 @@ const app = (
   </Provider>
 )
 
-history.listen(({pathname, action}) => {
+history.listen(() => {
+  const {pathname, action} = history.getCurrentLocation()
+
   trackPage(pathname)
 
   // scrolling to the top on navigation

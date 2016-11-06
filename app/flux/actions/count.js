@@ -5,14 +5,14 @@ export const types = {
 
 export function increase(n) {
   return {
-    type: INCREASE,
+    type: types.INCREASE,
     amount: n
   }
 }
 
 export function decrease(n) {
   return {
-    type: DECREASE,
+    type: types.DECREASE,
     amount: n
   }
 }

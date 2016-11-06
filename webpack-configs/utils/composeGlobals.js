@@ -5,7 +5,8 @@ function globalizeName(defaultValue = null, name = '') {
   const globalizedName = snakeCase(name).toUpperCase()
 
   const envValue = process.env[globalizedName]
-  const value = envValue !== undefined ? envValue : defaultValue
+
+  const value = envValue === undefined ? defaultValue : envValue
 
   return [
     `__${globalizedName}__`,
@@ -14,7 +15,7 @@ function globalizeName(defaultValue = null, name = '') {
 }
 
 // will compose globals like {__NAME__: JSON.stringify(process.env.NAME || 'default')}
-// globals itlsef expected to be provide with heroku settings
+// globals itself expected to be provide with heroku settings
 // or .dev file with foreman runner
 export default function composeGlobals(globals) {
   const result = {}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes, PureComponent}  from 'react'
 
 import css from './ErrorPages.styl'
 import PageMeta from 'app/components/PageMeta'
@@ -7,18 +7,16 @@ import SiteWrap from 'app/components/Layout/SiteWrap'
 import Section from 'app/components/Layout/Section'
 import window from 'app/utils/window'
 
-export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-    error: React.PropTypes.object,
-    skipLayout: React.PropTypes.bool
-  },
+export default class ServerErrorPage extends PureComponent {
+  static propTypes = {
+    children: PropTypes.node,
+    error: PropTypes.object,
+    skipLayout: PropTypes.bool,
+  }
 
-  getDefaultProps() {
-    return {
-      skipLayout: false,
-    }
-  },
+  static defaultProps = {
+    skipLayout: false,
+  }
 
 
   render() {
@@ -61,4 +59,4 @@ export default React.createClass({
       </PageMeta>
     )
   }
-})
+}
