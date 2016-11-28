@@ -36,8 +36,8 @@ export default class ServerErrorPage extends PureComponent {
             {displayError &&
               <code className={css.errorStack}>
                 Message: {error.message}
-                <br/>
-                <br/>
+                <br />
+                <br />
                 {error.stack}
               </code>
             }
@@ -46,7 +46,7 @@ export default class ServerErrorPage extends PureComponent {
               <main>
                 <h1 className={css.title}>Ошибка</h1>
 
-                <h4>Извините, но<br/>в какой-то момент,<br/> что-то пошло не так</h4>
+                <h4>Извините, но<br />в какой-то момент,<br /> что-то пошло не так</h4>
               </main>
               <aside>
                 <button onClick={() => window.location.reload()}>

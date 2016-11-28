@@ -15,5 +15,4 @@ export default function create(initialState = {}) {
   )(createStore)
 
   return finalCreateStore(reducer, initialState)
-
 }

@@ -5,6 +5,7 @@ import React from 'react'
 import {match, createMemoryHistory} from 'react-router'
 import {ReduxAsyncConnect, loadOnServer} from 'redux-connect'
 import {Provider} from 'react-redux'
+import 'isomorphic-fetch'
 
 import Helmet from 'react-helmet'
 import PageMeta from 'app/components/smart/PageMeta'
@@ -12,7 +13,7 @@ import PageMeta from 'app/components/smart/PageMeta'
 import routes from 'app/routes'
 import createStore from 'app/flux/stores'
 import client from 'app/utils/client'
-import 'isomorphic-fetch'
+import {TOKEN_COOKIE_NAME} from 'app/flux/constants'
 
 import {setLoginData} from 'app/flux/actions/me'
 import template from 'app/template.html'
@@ -37,20 +38,18 @@ const renderPage = (html, store, headStrings, statics) => {
 // rendering error page
 // trying render smart page with profile etc
 // and then pure page with just dumb text
-const wrapErrorPage = (ErrorPage, store, statics) => {
-  return (props = {}) => {
-    try {
-      return renderPage(renderToString(
-        <Provider store={store} key="provider">
-          <ErrorPage {...props} />
-        </Provider>
-      ), store, {}, statics)
-    } catch (errorPageRenderingError) { // we need to go deeper!
-      return wrapErrorPage(ServerErrorPage, store, statics)({
-        error: errorPageRenderingError,
-        skipLayout: true // preventing any `smart` components from rendering. pure html.
-      })
-    }
+const wrapErrorPage = (ErrorPage, store, statics) => (props = {}) => {
+  try {
+    return renderPage(renderToString(
+      <Provider store={store} key="provider">
+        <ErrorPage {...props} />
+      </Provider>
+    ), store, {}, statics)
+  } catch (errorPageRenderingError) { // we need to go deeper!
+    return wrapErrorPage(ServerErrorPage, store, statics)({
+      error: errorPageRenderingError,
+      skipLayout: true, // preventing any `smart` components from rendering. pure html.
+    })
   }
 }
 
@@ -59,7 +58,7 @@ export default function prerender(req, res, statics) {
   const {store} = createStore(history)
 
   // trying to set token from cookie `JwtToken`
-  const {cookies: {JwtToken: token} = {}} = req
+  const {cookies: {[TOKEN_COOKIE_NAME]: token} = {}} = req
 
   if (token) {
     store.dispatch(setLoginData({token}))
@@ -110,7 +109,6 @@ export default function prerender(req, res, statics) {
       .catch((loadErr) => {
         res.status(500).send(serverError({error: loadErr}))
       })
-
     } else {
       res.status(404).send(notFoundPage())
     }

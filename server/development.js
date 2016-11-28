@@ -57,7 +57,7 @@ if (__DEV_PRERENDER__) {
       } else {
         prerender = compiledPrerender
       }
-    }
+    },
   })
 } else {
   prerender = nullPrerender
