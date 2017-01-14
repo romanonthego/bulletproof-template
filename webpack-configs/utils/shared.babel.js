@@ -140,6 +140,10 @@ const config = {
         storeOnUpload: true,
       },
     },
+    simpleUrl: {
+      test: /\.(jpg|png|gif|mp4|webm|pdf)$/,
+      loader: 'file?name=[name]@[hash].[ext]',
+    },
   },
 
   postLoaders: [
@@ -230,7 +234,10 @@ export const optimizationPlugins = [
 // simple loaders with file/url loader - no-hot, no-config - nothing,
 export const simpleLoaders = [
   config.loaders.restFiles,
-  config.loaders.uploadcare,
+  // uncomment uploadcare and comment simpleUrl to use uploadcare cdn
+  // instead of serving assets localy
+  // config.loaders.uploadcare,
+  config.loaders.simpleUrl,
   config.loaders.inlineWoff,
   config.loaders.json,
   config.loaders.svg,
